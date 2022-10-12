@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '1rem',
       },
     },
+    '& a': {
+      textDecoration: 'none',
+    },
     '& Button': {
       marginTop: '1rem',
       backgroundColor: '#2196f3',
