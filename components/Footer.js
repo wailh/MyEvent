@@ -11,8 +11,9 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import PinterestIcon from '@mui/icons-material/Pinterest';
+import Image from 'next/image';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -26,10 +27,6 @@ const useStyles = makeStyles({
   logo: {
     display: 'flex',
     alignItems: 'center',
-    '& img': {
-      width: 60,
-      height: 60,
-    },
     '& p': {
       fontSize: '2.5rem',
       '& span': {
@@ -52,9 +49,15 @@ const useStyles = makeStyles({
       '&:hover': {
         backgroundColor: '#404040',
       },
+      [theme.breakpoints.down(750)]: {
+        borderRight: 'unset',
+      },
+    },
+    [theme.breakpoints.down(750)]: {
+      flexDirection: 'column',
     },
   },
-});
+}));
 
 function Footer() {
   const classes = useStyles();
@@ -67,9 +70,11 @@ function Footer() {
           sx={{ display: { xs: 'none', sm: 'block' } }}
           className={classes.logo}
         >
-          <img
+          <Image
             src="https://res.cloudinary.com/elumi/image/upload/v1663060732/myevent_cgiv2z.jpg"
             alt="myevent.com"
+            width={60}
+            height={60}
           />
           <Typography variant="h4" component="p" color="secondary">
             <span>my</span>event
@@ -91,7 +96,7 @@ function Footer() {
           <li>À propos</li>
           <li>Pourquoi nous sommes les meilleurs</li>
           <li>Contact</li>
-          <li>Conditions d'utilisation</li>
+          <li>Conditions d&apos;utilisation</li>
           <li>Politique de confidentialité</li>
         </ul>
         <ul className={classes.list}>

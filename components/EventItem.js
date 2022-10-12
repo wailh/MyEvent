@@ -6,30 +6,35 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
+import Link from 'next/link';
 
 const EventItem = ({ evt }) => {
   return (
     <>
       <Card sx={{ maxWidth: 375, minHeight: 320 }}>
-        <CardMedia
-          component="img"
-          height="140"
-          image={
-            evt.attributes.image.data
-              ? evt.attributes.image.data.attributes.formats.medium.url
-              : 'event-default.png'
-          }
-          alt="Paella dish"
-        />
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            {new Date(evt.attributes.date).toLocaleDateString('en-US')} at{' '}
-            {evt.attributes.time}
-          </Typography>
-          <Typography variant="h6" color="text.secondary">
-            {evt.attributes.name}
-          </Typography>
-        </CardContent>
+        <Link href={`/events/${evt.attributes.slug}`}>
+          <a>
+            <CardMedia
+              component="img"
+              height="140"
+              image={
+                evt.attributes.image.data
+                  ? evt.attributes.image.data.attributes.formats.medium.url
+                  : 'event-default.png'
+              }
+              alt="Paella dish"
+            />
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(evt.attributes.date).toLocaleDateString('en-US')} at{' '}
+                {evt.attributes.time}
+              </Typography>
+              <Typography variant="h6" color="text.secondary">
+                {evt.attributes.name}
+              </Typography>
+            </CardContent>
+          </a>
+        </Link>
         <CardActions disableSpacing>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />

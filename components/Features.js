@@ -9,9 +9,12 @@ import EventAvailableIcon from '@mui/icons-material/EventAvailable';
 import { Box } from '@mui/system';
 import { Grid, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     padding: '50px 80px',
+    [theme.breakpoints.down(750)]: {
+      padding: '50px 20px',
+    },
   },
   container: {
     marginTop: '1.5rem',
@@ -19,7 +22,7 @@ const useStyles = makeStyles({
   icon: {
     fontSize: 100,
   },
-});
+}));
 
 const Features = () => {
   const classes = useStyles();
@@ -35,25 +38,25 @@ const Features = () => {
         className={classes.container}
         color="why.main"
       >
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <ConfirmationNumberIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
             Vendre des billets
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <MonetizationOnIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
             Recueillir des dons
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <EventAvailableIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
             Gestion RSVP
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <ComputerIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
             Adresse Web personnalisée
@@ -67,25 +70,25 @@ const Features = () => {
         color="why.main"
         pt="2"
       >
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <CampaignIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
-            Promotion d'événement
+            Promotion d&apos;événement
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <AccountBalanceWalletIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
             Soyez payé facilement
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <ApartmentIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
             Traiter avec une seule entreprise
           </Typography>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={6} md={3}>
           <SupportIcon className={classes.icon} />
           <Typography variant="h5" component="h5" color="primary.main">
             Le meilleur service client

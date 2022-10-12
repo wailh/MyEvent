@@ -2,7 +2,7 @@ import Layout from '@/components/Layout';
 import { API_URL } from '@/config/index';
 import Events from '@/components/events';
 
-const search = ({ data }) => {
+const Search = ({ data }) => {
   return (
     <Layout>
       <Events events={data.data} />
@@ -10,7 +10,7 @@ const search = ({ data }) => {
   );
 };
 
-export default search;
+export default Search;
 
 export async function getServerSideProps({ query: { term } }) {
   const res = await fetch(

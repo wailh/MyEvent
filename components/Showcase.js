@@ -1,7 +1,8 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import NextLink from 'next/link';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     position: 'relative',
     height: '540px',
@@ -14,9 +15,15 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
+    [theme.breakpoints.down(750)]: {
+      height: '300px',
+    },
     '& video': {
       position: 'absolute',
       width: '100%',
+      [theme.breakpoints.down(750)]: {
+        height: '100%',
+      },
     },
     '& div': {
       position: 'absolute',
@@ -27,12 +34,18 @@ const useStyles = makeStyles({
         marginTop: '1rem',
         fontWeight: 600,
         textShadow: '4px 4px 4px #000',
+        [theme.breakpoints.down(750)]: {
+          fontSize: '3rem',
+        },
       },
     },
     '& h3': {
       marginTop: '1rem',
       fontWeight: 700,
       textShadow: '4px 4px 4px #000',
+      [theme.breakpoints.down(750)]: {
+        fontSize: '1rem',
+      },
     },
     '& Button': {
       marginTop: '1rem',
@@ -40,9 +53,12 @@ const useStyles = makeStyles({
       fontSize: '1.5rem',
       boxShadow: '0px 4px 5px #000',
       fontWeight: 400,
+      [theme.breakpoints.down(750)]: {
+        fontSize: '1rem',
+      },
     },
   },
-});
+}));
 
 const Showcase = () => {
   const classes = useStyles();
@@ -62,12 +78,16 @@ const Showcase = () => {
         align="center"
       >
         <Typography variant="h2" component="h2">
-          Sites De Planification D'événements
+          Sites De Planification D&apos;événements
         </Typography>
         <Typography variant="h4" component="h3">
-          Planifiez Votre Événement Aujourd'hui
+          Planifiez Votre Événement Aujourd&apos;hui
         </Typography>
-        <Button variant="contained">commenser maintenant</Button>
+        <NextLink href="/" passHref>
+          <Link>
+            <Button variant="contained">commenser maintenant</Button>
+          </Link>
+        </NextLink>
       </Typography>
     </Box>
   );

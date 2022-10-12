@@ -46,7 +46,7 @@ const useStyles = makeStyles({
   },
 });
 
-const add = () => {
+const Add = () => {
   const router = useRouter();
   const classes = useStyles();
   const {
@@ -143,4 +143,4 @@ const add = () => {
     </Layout>
   );
 };
-export default add;
+export default Add;

@@ -9,6 +9,7 @@ import { Box } from '@mui/system';
 import Link from 'next/link';
 import { API_URL } from '@/config/index';
 import { useRouter } from 'next/router';
+import cookie from 'cookie';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -47,7 +48,7 @@ const useStyles = makeStyles({
   },
 });
 
-const edit = ({ event }) => {
+const Edit = ({ event }) => {
   const classes = useStyles();
   const router = useRouter();
   const {
@@ -89,6 +90,10 @@ const edit = ({ event }) => {
     );
 
     if (!res.ok) {
+      if (res.status === 403 || res.status === 401) {
+        toast.error('Unauthorized');
+        return;
+      }
       toast.error('something went wrong!');
     } else {
       const event = await res.json();
@@ -154,9 +159,9 @@ const edit = ({ event }) => {
     </Layout>
   );
 };
-export default edit;
+export default Edit;
 
-export async function getServerSideProps({ query: { id } }) {
+export async function getServerSideProps({ query: { id }, req }) {
   const res = await fetch(
     `${API_URL}/api/events?filters[id][$eq]=${id}&populate=*`
   );

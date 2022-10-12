@@ -51,10 +51,10 @@ const PageNotFound = () => {
           404
         </Typography>
         <Typography variant="body1" component="p">
-          Désolé, nous n'avons pas trouvé la page que vous cherchiez.
+          Désolé, nous n&apos;avons pas trouvé la page que vous cherchiez.
         </Typography>
 
-        <Button variant="contained">Retournez à la page d'accueil</Button>
+        <Button variant="contained">Retournez à la page d&apos;accueil</Button>
       </Box>
     </Box>
   );

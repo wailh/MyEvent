@@ -1,3 +1,5 @@
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Layout from '@/components/Layout';
 import { useForm } from 'react-hook-form';
 import PersonIcon from '@mui/icons-material/Person';
@@ -5,14 +7,19 @@ import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import Link from 'next/link';
+import AuthContext from '@/context/AuthContext';
+import { useContext, useEffect } from 'react';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     width: '500px',
     margin: 'auto',
     margin: '60px auto',
     padding: '40px 30px',
     boxShadow: '0 10px 20px 0 rgb(50 50 50 / 52%)',
+    [theme.breakpoints.down(750)]: {
+      width: '400px',
+    },
   },
   title: {
     display: 'flex',
@@ -44,9 +51,13 @@ const useStyles = makeStyles({
   text: {
     fontSize: 17,
   },
-});
+  error: {
+    color: 'red',
+  },
+}));
 
-export default function register() {
+export default function Register() {
+  const { registerUser, error } = useContext(AuthContext);
   const classes = useStyles();
 
   const {
@@ -54,36 +65,66 @@ export default function register() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+
+  useEffect(() => {
+    error && toast.error(error);
+  });
+
+  const onSubmit = (data) => {
+    const { username, email, password } = data;
+    if (password !== data.ConfirmPassword) {
+      toast.error("password dosn't match ");
+      return;
+    } else {
+      registerUser({ username, email, password });
+    }
+  };
 
   return (
-    <Layout  title="User Register">
+    <Layout title="User Registration">
       <Box className={classes.container}>
         <Typography variant="p" component="h1" className={classes.title}>
           <PersonIcon className={classes.icon} /> {` `}
           Register
         </Typography>
+        <ToastContainer />
+
         <form onSubmit={handleSubmit(onSubmit)} className={classes.form}>
           <label>Username</label>
-          <input {...register('username')} />
+          <input
+            {...register('username', {
+              required: 'username is required',
+            })}
+          />
+
           <label>Email Address</label>
-          <input {...register('email not valid', pattern:
-                /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,)} />
+          <input
+            {...register('email', {
+              pattern:
+                /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+              required: 'email is required',
+            })}
+          />
 
           <label>Password</label>
           <input
             {...register('password', {
-              required: 'min length 8 ',
-              minLength: 8
+              required: true,
             })}
+            type="password"
           />
           <label>Confirm Password</label>
-          <input {...register('ConfirmPassword', { required: true })} />
-          {errors.exampleRequired && <span>This field is required</span>}
+          <input
+            {...register('ConfirmPassword', { required: true })}
+            type="password"
+          />
+          {(errors.username || errors.email) && (
+            <span className={classes.error}>This field is required</span>
+          )}
 
-          <input type="submit" className={classes.submit} />
+          <input type="submit" className={classes.submit} value="Register" />
           <Typography variant="body1" component="p" className={classes.text}>
-            Don't have an account?
+            Already have an account!
             <Link href="/account/login"> Login</Link>
           </Typography>
         </form>

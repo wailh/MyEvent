@@ -43,8 +43,8 @@ const Testimenials = (props) => {
       </Typography>
       <Carousel>
         {items.map((item, i) => (
-          <Grid container spacing={2}>
-            <Grid item xs={4}>
+          <Grid container spacing={2} key={i}>
+            <Grid item xs={12} md={4}>
               <Paper key={i}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardHeader
@@ -70,7 +70,7 @@ const Testimenials = (props) => {
                 </Card>
               </Paper>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <Paper key={i}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardHeader
@@ -96,7 +96,7 @@ const Testimenials = (props) => {
                 </Card>
               </Paper>
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
               <Paper key={i}>
                 <Card sx={{ maxWidth: 345 }}>
                   <CardHeader

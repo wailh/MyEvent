@@ -33,7 +33,7 @@ const Events = ({ events }) => {
   return (
     <Box className={classes.container}>
       <Grid container spacing={2}>
-        <Grid item xs={4} className={classes.list}>
+        <Grid item xs={12} md={4} className={classes.list}>
           <Typography variant="h4" component="h2">
             Category
           </Typography>
@@ -58,15 +58,18 @@ const Events = ({ events }) => {
             </ButtonGroup>
           </Box>
         </Grid>
-        <Grid item container xs={8} spacing={2} className={classes.content}>
+        <Grid
+          item
+          container
+          xs={12}
+          md={8}
+          spacing={2}
+          className={classes.content}
+        >
           {events.length === 0 && <h3>No events to show</h3>}
           {events.map((evt) => (
-            <Grid item xs={4} key={evt.key}>
-              <Link href={`/events/${evt.attributes.slug}`}>
-                <a>
-                  <EventItem evt={evt} />
-                </a>
-              </Link>
+            <Grid item xs={12} md={4} key={evt.key}>
+              <EventItem evt={evt} />
             </Grid>
           ))}
         </Grid>

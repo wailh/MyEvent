@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   search: {
     width: '300px',
     color: 'secondary',
@@ -11,8 +11,11 @@ const useStyles = makeStyles({
     border: '1px solid #fff',
     borderRadius: '10px',
     padding: '10px 15px',
+    [theme.breakpoints.down(750)]: {
+      width: '250px',
+    },
   },
-});
+}));
 
 const Search = () => {
   const [search, setSearch] = useState('');

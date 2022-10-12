@@ -2,7 +2,7 @@ import Events from '@/components/Events';
 import Layout from '@/components/Layout';
 import { API_URL } from '@/config/index';
 
-const events = ({ events }) => {
+const EventsPage = ({ events }) => {
   const evt = events.data;
   return (
     <Layout>
@@ -11,7 +11,7 @@ const events = ({ events }) => {
   );
 };
 
-export default events;
+export default EventsPage;
 
 export async function getServerSideProps() {
   const res = await fetch(`${API_URL}/api/events?populate=*`);

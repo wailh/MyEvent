@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import '@fortawesome/fontawesome-svg-core/styles.css'; // import Font Awesome CSS
 import { config } from '@fortawesome/fontawesome-svg-core';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { AuthProvider } from '@/context/AuthContext';
 config.autoAddCss = false;
 import '../styles/globals.css';
 
@@ -37,7 +38,9 @@ function MyApp({ Component, pageProps }) {
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
     </ThemeProvider>
   );
 }

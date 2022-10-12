@@ -35,7 +35,7 @@ const Essaye = () => {
           <Typography variant="h3" component="span" fontWeight="bold">
             gratuitement{' '}
           </Typography>
-          aujourd'hui
+          aujourd&apos;hui
         </Typography>
         <Button variant="contained" className={classes.btn}>
           commenser
@@ -43,10 +43,11 @@ const Essaye = () => {
       </Box>
       <Box color="secondary.main" bgcolor="why.main" className={classes.aide}>
         <Typography variant="p" component="p" className={classes.pOne}>
-          Besoin d'aide?
+          Besoin d&apos;aide?
         </Typography>
         <Typography variant="p" component="p" className={classes.pTwo}>
-          Veuillez communiquer avec notre équipe d'assistance au 1.877.769.3836.
+          Veuillez communiquer avec notre équipe d&apos;assistance au
+          1.877.769.3836.
         </Typography>
       </Box>
     </Box>

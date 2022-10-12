@@ -9,9 +9,15 @@ import {
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   wrapper: {
     padding: '50px 0',
+    '& h1': {
+      [theme.breakpoints.down(750)]: {
+        fontSize: '2rem !important',
+        padding: '0 10px',
+      },
+    },
   },
   container: {
     padding: '30px 100px',
@@ -26,7 +32,7 @@ const useStyles = makeStyles({
   content: {
     padding: '5px 0',
   },
-});
+}));
 
 const EventTypes = () => {
   const classes = useStyles();
@@ -44,7 +50,7 @@ const EventTypes = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Card className={classes.card}>
             <CardActionArea>
               <CardMedia
@@ -69,7 +75,7 @@ const EventTypes = () => {
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Card>
             <CardActionArea>
               <CardMedia
@@ -94,7 +100,7 @@ const EventTypes = () => {
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Card>
             <CardActionArea>
               <CardMedia
@@ -119,7 +125,7 @@ const EventTypes = () => {
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Card>
             <CardActionArea>
               <CardMedia
@@ -144,7 +150,7 @@ const EventTypes = () => {
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Card>
             <CardActionArea>
               <CardMedia
@@ -169,7 +175,7 @@ const EventTypes = () => {
             </CardActionArea>
           </Card>
         </Grid>
-        <Grid item xs={4}>
+        <Grid item xs={12} md={4}>
           <Card>
             <CardActionArea>
               <CardMedia
