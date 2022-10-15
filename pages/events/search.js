@@ -1,6 +1,6 @@
+import Events from '@/components/Events';
 import Layout from '@/components/Layout';
 import { API_URL } from '@/config/index';
-import Events from '@/components/events';
 
 const Search = ({ data }) => {
   return (

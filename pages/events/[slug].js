@@ -2,7 +2,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from '@/components/Layout';
 import { Box } from '@mui/system';
-import { makeStyles } from '@mui/styles';
+// import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
 import { API_URL } from '@/config/index';
 import Image from 'next/image';
