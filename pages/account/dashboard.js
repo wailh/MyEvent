@@ -6,9 +6,12 @@ import { makeStyles } from '@mui/styles';
 import { Typography } from '@mui/material';
 import { API_URL } from '@/config/index';
 import Link from 'next/link';
+import { parseCookies } from '../../helpers/index';
 import { useRouter } from 'next/router';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import { useContext } from 'react';
+import AuthContext from '@/context/AuthContext';
 
 const useStyles = makeStyles((theme) => ({
   dashboard: {
@@ -47,20 +50,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Dashboard = ({ events }) => {
+const Dashboard = ({ events, token }) => {
+  const { user, logout } = useContext(AuthContext);
+
   const classes = useStyles();
   const router = useRouter();
 
-  const handleDelete = async () => {
+  const handleDelete = async (id) => {
     if (confirm('Are you sure?')) {
-      const res = await fetch(
-        `${API_URL}/api/events/${event.data[0].attributes.id}`,
-        {
-          mathod: 'DELETE',
-        }
-      );
+      const res = await fetch(`${API_URL}/api/events/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
       const data = await res.json();
 
+      console.log('message ', data);
       if (!res.ok) {
         toast.error(data.message);
       } else {
@@ -104,7 +112,11 @@ const Dashboard = ({ events }) => {
                     Event
                   </a>
                 </Link>
-                <a href="#" onClick={handleDelete} className={classes.delete}>
+                <a
+                  href="#"
+                  onClick={() => handleDelete(evt.id)}
+                  className={classes.delete}
+                >
                   <DeleteForeverIcon className={classes.icon} /> {`   `}
                   Delete
                 </a>
@@ -119,13 +131,28 @@ const Dashboard = ({ events }) => {
 
 export default Dashboard;
 
-export async function getServerSideProps() {
-  const res = await fetch(`${API_URL}/api/events`);
+export async function getServerSideProps({ req }) {
+  const { token } = parseCookies(req);
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/account/login',
+        permanent: false,
+      },
+    };
+  }
+  const res = await fetch(`${API_URL}/api/events`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 
   const events = await res.json();
   return {
     props: {
       events,
+      token,
     },
   };
 }

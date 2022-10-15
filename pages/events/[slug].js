@@ -8,6 +8,7 @@ import { API_URL } from '@/config/index';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { parseCookies } from '@/helpers/index';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
@@ -46,19 +47,21 @@ const useStyles = makeStyles({
   },
 });
 
-const Details = (item) => {
+const Details = ({ item, token }) => {
   const classes = useStyles();
   const router = useRouter();
-  const event = item.item;
+  const event = item;
 
   const handleDelete = async () => {
     if (confirm('Are you sure?')) {
-      const res = await fetch(
-        `${API_URL}/api/events/${event.data[0].attributes.id}`,
-        {
-          mathod: 'DELETE',
-        }
-      );
+      const res = await fetch(`${API_URL}/api/events/${event.data[0].id}`, {
+        mathod: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+      });
       const data = await res.json();
 
       if (!res.ok) {
@@ -143,15 +146,31 @@ const Details = (item) => {
 
 export default Details;
 
-export async function getServerSideProps({ query: { slug } }) {
+export async function getServerSideProps({ req, query: { slug } }) {
+  const { token } = parseCookies(req);
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/account/login',
+        permanent: false,
+      },
+    };
+  }
   const res = await fetch(
-    `${API_URL}/api/events?filters[slug][$eq]=${slug}&populate=*`
+    `${API_URL}/api/events?filters[slug][$eq]=${slug}&populate=*`,
+    {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
 
   const item = await res.json();
   return {
     props: {
       item,
+      token,
     },
   };
 }

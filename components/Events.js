@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     padding: '10px',
   },
 });
-const Events = ({ events }) => {
+const Events = ({ evts }) => {
   const classes = useStyles();
   return (
     <Box className={classes.container}>
@@ -66,8 +66,8 @@ const Events = ({ events }) => {
           spacing={2}
           className={classes.content}
         >
-          {events.length === 0 && <h3>No events to show</h3>}
-          {events.map((evt) => (
+          {evts.length === 0 && <h3>No events to show</h3>}
+          {evts.map((evt) => (
             <Grid item xs={12} md={4} key={evt.key}>
               <EventItem evt={evt} />
             </Grid>

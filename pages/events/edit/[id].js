@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { API_URL } from '@/config/index';
 import { useRouter } from 'next/router';
 import cookie from 'cookie';
+import { parseCookies } from '@/helpers/index';
 
 const useStyles = makeStyles({
   wrapper: {
@@ -48,7 +49,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Edit = ({ event }) => {
+const Edit = ({ event, token }) => {
   const classes = useStyles();
   const router = useRouter();
   const {
@@ -66,28 +67,27 @@ const Edit = ({ event }) => {
       Time: event.data[0].attributes.time,
     },
   });
-  const onSubmit = async (data) => {
-    const evt = {
+  const onSubmit = async (evt) => {
+    const data = {
       data: {
-        name: data.Name,
-        venue: data.Venue,
-        address: data.Address,
-        date: data.Date,
-        time: data.Time,
-        performers: data.Performers,
-        description: data.Description,
+        name: evt.Name,
+        venue: evt.Venue,
+        address: evt.Address,
+        date: evt.Date,
+        time: evt.Time,
+        performers: evt.Performers,
+        description: evt.Description,
       },
     };
-    const res = await fetch(
-      `${API_URL}/api/events?filters[id][$eq]=${event.data[0].id}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(evt),
-      }
-    );
+    const res = await fetch(`${API_URL}/api/events/${event.data[0].id}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
 
     if (!res.ok) {
       if (res.status === 403 || res.status === 401) {
@@ -162,14 +162,21 @@ const Edit = ({ event }) => {
 export default Edit;
 
 export async function getServerSideProps({ query: { id }, req }) {
+  const { token } = parseCookies(req);
   const res = await fetch(
-    `${API_URL}/api/events?filters[id][$eq]=${id}&populate=*`
+    `${API_URL}/api/events?filters[id][$eq]=${id}&populate=*`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
   );
   const data = await res.json();
 
   return {
     props: {
       event: data,
+      token,
     },
   };
 }

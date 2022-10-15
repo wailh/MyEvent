@@ -6,7 +6,7 @@ const EventsPage = ({ events }) => {
   const evt = events.data;
   return (
     <Layout>
-      <Events events={evt} />
+      <Events evts={evt} />
     </Layout>
   );
 };
