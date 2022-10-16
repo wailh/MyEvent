@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
       color: '#fff',
       border: 'none',
       borderRadius: '3px',
+      cursor: 'pointer',
     },
     '& label': {
       fontSize: 17,
